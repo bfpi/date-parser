@@ -20,34 +20,5 @@
 # SOFTWARE.
 #++
 
-require 'date'
-
-module AddParserToDate
-  def new(*args)
-    return super unless args.length == 1 && args[0].class.eql?(String)
-
-    dat = args[0]
-    dat.strip! if dat.respond_to?(:strip!)
-    begin
-      if dat =~ /^([0]?[1-9]|[12][0-9]|3[01])\.([0]?[1-9]|[1][0-2])\.[0-9]{2}$/
-        Date.strptime(dat, "%d.%m.%y")
-      elsif dat =~ /^([0]?[1-9]|[12][0-9]|3[01])\.([0]?[1-9]|[1][0-2])\.[0-9]{4}$/
-        Date.strptime(dat, "%d.%m.%Y")
-      elsif dat =~ /^[0-9]{6}$/
-        Date.strptime("#{dat[0..1]}.#{dat[2..3]}.#{dat[4..5]}", "%d.%m.%y")
-      elsif dat =~ /^[0-9]{8}$/
-        Date.strptime("#{dat[0..1]}.#{dat[2..3]}.#{dat[4..7]}", "%d.%m.%Y")
-      elsif dat =~ /^[0-9]{2}-([0]?[1-9]|[1][0-2])-([0]?[1-9]|[12][0-9]|3[01])$/
-        Date.strptime(dat, "%y-%m-%d")
-      elsif dat =~ /^[0-9]{4}-([0]?[1-9]|[1][0-2])-([0]?[1-9]|[12][0-9]|3[01])$/
-        Date.strptime(dat, "%Y-%m-%d")
-      else
-        nil
-      end
-    rescue ArgumentError
-      nil
-    end
-  end
-end
-
-Date.singleton_class.prepend AddParserToDate
+require 'date-parser/date'
+require 'date-parser/datetime'
