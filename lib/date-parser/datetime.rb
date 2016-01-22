@@ -13,9 +13,8 @@ module AddParserToDateTime
       date = Date.new(date)
       return if date.nil?
       
-      datetime = date.to_datetime
-      if time =~ /^(0[0-9]|1[0-9]|2[0-4])[\.\:]?([0-5][0-9])$/
-        datetime.change(hour: $1.to_i, min: $2.to_i)
+      if time =~ /^(0[0-9]|1[0-9]|2[0-4])[\.\:]?([0-5][0-9])[\.\:]?([0-5][0-9])(Z|\+(0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)?$/
+        DateTime.new date.year, date.mon, date.day, $1.to_i, $2.to_i, $3.to_i, $4
       else
         nil
       end

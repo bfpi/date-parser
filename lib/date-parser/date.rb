@@ -2,33 +2,30 @@ require 'date'
 
 module AddParserToDate
   def new(*args)
-    if args.length == 1
-      value = args.first
-      return value if value.is_a?(Date)
-      return super unless value.is_a?(String)
+    return super if args.length != 1
+    value = args.first
+    return value if value.is_a?(Date)
+    return super unless value.is_a?(String)
 
-      value.strip!
-      begin
-        if value =~ /^([0]?[1-9]|[12][0-9]|3[01])\.([0]?[1-9]|[1][0-2])\.[0-9]{2}$/
-          Date.strptime(value, "%d.%m.%y")
-        elsif value =~ /^([0]?[1-9]|[12][0-9]|3[01])\.([0]?[1-9]|[1][0-2])\.[0-9]{4}$/
-          Date.strptime(value, "%d.%m.%Y")
-        elsif value =~ /^[0-9]{6}$/
-          Date.strptime("#{value[0..1]}.#{value[2..3]}.#{value[4..5]}", "%d.%m.%y")
-        elsif value =~ /^[0-9]{8}$/
-          Date.strptime("#{value[0..1]}.#{value[2..3]}.#{value[4..7]}", "%d.%m.%Y")
-        elsif value =~ /^[0-9]{2}-([0]?[1-9]|[1][0-2])-([0]?[1-9]|[12][0-9]|3[01])$/
-          Date.strptime(value, "%y-%m-%d")
-        elsif value =~ /^[0-9]{4}-([0]?[1-9]|[1][0-2])-([0]?[1-9]|[12][0-9]|3[01])$/
-          Date.strptime(value, "%Y-%m-%d")
-        else
-          nil
-        end
-      rescue ArgumentError
+    value.strip!
+    begin
+      if value =~ /^([0]?[1-9]|[12][0-9]|3[01])\.([0]?[1-9]|[1][0-2])\.[0-9]{2}$/
+        Date.strptime(value, "%d.%m.%y")
+      elsif value =~ /^([0]?[1-9]|[12][0-9]|3[01])\.([0]?[1-9]|[1][0-2])\.[0-9]{4}$/
+        Date.strptime(value, "%d.%m.%Y")
+      elsif value =~ /^[0-9]{6}$/
+        Date.strptime("#{value[0..1]}.#{value[2..3]}.#{value[4..5]}", "%d.%m.%y")
+      elsif value =~ /^[0-9]{8}$/
+        Date.strptime("#{value[0..1]}.#{value[2..3]}.#{value[4..7]}", "%d.%m.%Y")
+      elsif value =~ /^[0-9]{2}-([0]?[1-9]|[1][0-2])-([0]?[1-9]|[12][0-9]|3[01])$/
+        Date.strptime(value, "%y-%m-%d")
+      elsif value =~ /^[0-9]{4}-([0]?[1-9]|[1][0-2])-([0]?[1-9]|[12][0-9]|3[01])$/
+        Date.strptime(value, "%Y-%m-%d")
+      else
         nil
       end
-    else
-      super
+    rescue ArgumentError
+      nil
     end
   end
 end
