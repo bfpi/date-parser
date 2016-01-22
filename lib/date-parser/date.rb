@@ -4,6 +4,7 @@ module AddParserToDate
   def new(*args)
     return super if args.length != 1
     value = args.first
+    return if value.nil?
     return value if value.is_a?(Date)
     return super unless value.is_a?(String)
 
