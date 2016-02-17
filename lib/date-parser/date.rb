@@ -12,8 +12,8 @@ module AddParserToDate
     begin
       if value =~ /^([0]?[1-9]|[12][0-9]|3[01])\.([0]?[1-9]|[1][0-2])\.[0-9]{2}$/
         Date.strptime(value, "%d.%m.%y")
-      elsif value =~ /^([0]?[1-9]|[12][0-9]|3[01])\.([0]?[1-9]|[1][0-2])\.[0-9]{4}$/
-        Date.strptime(value, "%d.%m.%Y")
+      elsif value =~ /^([0]?[1-9]|[12][0-9]|3[01])([.-])([0]?[1-9]|[1][0-2])([.-])[0-9]{4}$/
+        Date.strptime(value, "%d#{ $2 }%m#{ $4 }%Y")
       elsif value =~ /^[0-9]{6}$/
         Date.strptime("#{value[0..1]}.#{value[2..3]}.#{value[4..5]}", "%d.%m.%y")
       elsif value =~ /^[0-9]{8}$/
