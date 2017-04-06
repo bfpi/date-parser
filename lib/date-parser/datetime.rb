@@ -6,6 +6,7 @@ module AddParserToDateTime
     value = args.first
     return if value.nil?
     return value if value.is_a?(DateTime) || value.is_a?(Time)
+    return value.to_datetime if value.is_a?(Date)
     return super unless value.is_a?(String)
 
     value.strip!
