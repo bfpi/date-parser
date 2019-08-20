@@ -7,8 +7,8 @@ require "date-parser/version"
 Gem::Specification.new do |s|
   s.name        = "date-parser"
   s.version     = DateParser::VERSION
-  s.authors     = ["Rober Voß", "Niels Bennke"]
-  s.email       = ["voss@bfpi.de", "bennkq@bfpi.de"]
+  s.authors     = ["Robert Voß", "Niels Bennke"]
+  s.email       = ["voss@bfpi.de", "bennke@bfpi.de"]
   s.homepage    = "http://www.bfpi.de"
   s.summary     = "Simple parser for dates and times from strings"
   s.description = "Simple parser for dates and times from strings"
